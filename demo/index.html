@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>flip-card demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../flip-card.html">
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+      </style>
+    </custom-style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic flip-card demo</h3>
+      <demo-snippet>
+        <template>
+          <flip-card current-side='front'>
+            <div slot="front">
+              This is the Front
+            </div>
+            <div slot="back">
+              This is the Back<br/>MoreContent<br/>Expando Divboxus!
+            </div>
+          </flip-card>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>
