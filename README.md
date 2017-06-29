@@ -1,6 +1,6 @@
-# \<flip-card\>
+# \<flippy-card\>
 
-A Flippable &#34;card&#34; based on Paul Lewis&#39; experiment
+A Flippable &#34;card&#34; based on Paul Lewis&#39; [UI Experiment](https://github.com/GoogleChrome/ui-element-samples/tree/gh-pages/3d-card-flip)
 
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/owner/my-element)
 
@@ -56,7 +56,7 @@ function flipit() {
 1. Submit a pull request :D
 
 ## Credits
-* [Paul Lewis (aerotwist)](https://github.com/paullewis/) [Paul's Homepage](https://aerotwist.com/)
+* [Paul Lewis (aerotwist)](https://github.com/paullewis/) ([Paul's Homepage](https://aerotwist.com/))
 * [Daniel Llewellyn (diddledan)](https://github.com/diddledan/)
 
 ## License
