@@ -1,5 +1,5 @@
 {
-  "name": "flip-card",
+  "name": "flippy-card",
   "description": "A Flippable &#34;card&#34; based on Paul Lewis&#39; experiment",
   "main": "flip-card.html",
   "dependencies": {

@@ -1,7 +1,7 @@
 <link rel="import" href="../polymer/polymer-element.html">
 <script type="javascript" src="scripts/inert.js"></script>
 
-<dom-module id="flip-card">
+<dom-module id="flippy-card">
   <template>
     <style>
       :host {
@@ -115,8 +115,8 @@
      * @polymer
      * @demo demo/index.html
      */
-    class FlipCard extends Polymer.Element {
-      static get is() { return 'flip-card'; }
+    class FlippyCard extends Polymer.Element {
+      static get is() { return 'flippy-card'; }
       static get properties() {
         return {
           duration: {
@@ -245,6 +245,6 @@
       }
     }
 
-    window.customElements.define(FlipCard.is, FlipCard);
+    window.customElements.define(FlippyCard.is, FlippyCard);
   </script>
 </dom-module>
