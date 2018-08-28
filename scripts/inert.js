@@ -15,8 +15,6 @@
  * limitations under the License.
  */
 
-(function(document) {
-
 /** @type {string} */
 const _focusableElementsString = ['a[href]',
                                   'area[href]',
@@ -212,8 +210,8 @@ class InertRoot {
           // Re-initialise inert node if tabindex changes
           this._manageNode(target);
         } else if (target !== this._rootElement &&
-                   record.attributeName === 'inert' &&
-                   target.hasAttribute('inert')) {
+                    record.attributeName === 'inert' &&
+                    target.hasAttribute('inert')) {
           // If a new inert root is added, adopt its managed nodes and make sure it knows about the
           // already managed nodes from this inert subroot.
           this._adoptInertRoot(target);
@@ -551,7 +549,7 @@ class InertManager {
   }
 }
 
- /**
+  /**
   * Recursively walk the composed tree from |node|.
   * @param {Node} node
   * @param {(function (Element))=} callback Callback to be called for each element traversed,
@@ -644,5 +642,3 @@ Object.defineProperty(Element.prototype, 'inert', {
                         get: function() { return this.hasAttribute('inert'); },
                         set: function(inert) { inertManager.setInert(this, inert) }
                       });
-
-})(document);
