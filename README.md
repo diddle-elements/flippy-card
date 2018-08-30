@@ -5,17 +5,14 @@ A Flippable &#34;card&#34; based on Paul Lewis&#39; [UI Experiment](https://gith
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/owner/my-element)
 
 ## Installation
-1. Install bower per their instructions, such as via:
-    ```
-    npm install -g bower
-    ```
-1. Using bower install the package to your project
+
+1. Using npm install the package to your project
     ```
     cd $YOUR_PROJECT_DIR
-    bower install diddledan/flippy-card
+    npm install --save @diddledan/flippy-card
     ```
 
-You will now find a folder called bower_components in your project root which contains the webcomponents polyfill, and the validate-string element files along with any dependencies required.
+You will now find a folder called node_modules in your project root which contains the webcomponents polyfill, and the flippy-card element files along with any dependencies required.
 
 ## Usage
 
@@ -23,8 +20,8 @@ You will now find a folder called bower_components in your project root which co
 ```
 <custom-element-demo>
   <template>
-    <link rel="import" href="flippy-card.html">
-    <link rel="import" href="../paper-button/paper-button.html">
+    <script type="module" src="flippy-card.js"></script>
+    <script type="module" src="../paper-button/paper-button.html"></script>
     <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
