@@ -2,7 +2,7 @@
   "description": "A Flippable &#34;card&#34; based on Paul Lewis&#39; experiment",
   "name": "@diddledan/flippy-card",
   "repository": "https://github.com/diddledan/flippy-card",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "license": "MIT",
   "resolutions": {
     "inherits": "2.0.3",
@@ -16,7 +16,6 @@
   },
   "devDependencies": {
     "@polymer/iron-demo-helpers": "^3.0.0-pre.18",
-    "wct-browser-legacy": "^1.0.1",
     "@webcomponents/webcomponentsjs": "^2.0.0"
   }
 }
