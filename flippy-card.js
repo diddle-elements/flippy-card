@@ -1,5 +1,4 @@
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { html } from '@polymer/polymer/lib/utils/html-tag.js';
+import { LitElement, html, property } from '@polymer/lit-element';
 import './scripts/inert.js';
 
 /**
@@ -12,8 +11,45 @@ import './scripts/inert.js';
  * @polymer
  * @demo demo/index.html
  */
-class FlippyCard extends PolymerElement {
-  static get template() {
+class FlippyCard extends LitElement {
+
+  constructor() {
+    super();
+    this._currentSide = 'front';
+    this._axis = 'Y';
+    this._duration = 800;
+  }
+
+  static get properties() {
+    return {
+      axis: {
+        type: String,
+        value: 'Y'
+      },
+      currentSide: {
+        type: String,
+        value: 'front'
+      },
+      duration: {
+        type: Number,
+        value: 800
+      }
+    };
+  }
+
+  static get observedAttributes() {
+    return [
+      'axis',
+      'current-side',
+      'duration'
+    ];
+  }
+  
+  _render() {
+    const path = import.meta.url.replace(/flippy-card.js$/, '');
+    const umbra = `${path}images/umbra.svg`;
+    const penumbra = `${path}/images/penumbra.svg`;
+
     return html`
     <style>
       :host {
@@ -79,10 +115,10 @@ class FlippyCard extends PolymerElement {
         left: 30px;
         border-style: solid;
         border-width: 10px;
-        -moz-border-image: url(images/umbra.svg) 10 round;
-        -webkit-border-image: url(images/umbra.svg) 10 round;
-        -o-border-image: url(images/umbra.svg) 10 round;
-        border-image: url(images/umbra.svg) 10 fill round;
+        -moz-border-image: url("${umbra}") 10 round;
+        -webkit-border-image: url("${umbra}") 10 round;
+        -o-border-image: url("${umbra}") 10 round;
+        border-image: url("${umbra}") 10 fill round;
         transform: translateY(2px);
         opacity: 0.3;
       }
@@ -94,10 +130,10 @@ class FlippyCard extends PolymerElement {
         left: 0px;
         border-style: solid;
         border-width: 80px;
-        -moz-border-image: url(images/penumbra.svg) 80 round;
-        -webkit-border-image: url(images/penumbra.svg) 80 round;
-        -o-border-image: url(images/penumbra.svg) 80 round;
-        border-image: url(images/penumbra.svg) 80 fill round;
+        -moz-border-image: url("${penumbra}") 80 round;
+        -webkit-border-image: url("${penumbra}") 80 round;
+        -o-border-image: url("${penumbra}") 80 round;
+        border-image: url("${penumbra}") 80 fill round;
         transform: translateY(2px);
         opacity: 0;
       }
@@ -118,112 +154,147 @@ class FlippyCard extends PolymerElement {
 `;
   }
 
-  static get is() { return 'flippy-card'; }
-  static get properties() {
-    return {
-      duration: {
-        type: Number,
-        value: 800
-      },
-      axis: {
-        type: String,
-        value: 'Y',
-        reflectToAttribute: true
-      },
-      currentSide: {
-        type: String,
-        value: 'front',
-        reflectToAttribute: true,
-        observer: '_currentSideChanged'
-      }
-    };
+  attributeChangedCallback(name, oldValue, newValue) {
+    switch (name) {
+      case 'axis':
+        if (newValue !== this._axis) {
+          this.axis = newValue;
+        }
+        break;
+      case 'current-side':
+        if (newValue !== this._currentSide) {
+          this.currentSide = newValue;
+        }
+        break;
+      case 'duration':
+        if (newValue !== this._duration) {
+          this.duration = newValue;
+        }
+        break;
+    }
   }
 
   ready() {
     super.ready();
     this._boundHandler = this._processLightChildren.bind(this);
     setTimeout(this._boundHandler);
-    this.$.sccard.addEventListener('slotchange', this._boundHandler);
+    this.shadowRoot.getElementById('sccard').addEventListener('slotchange', this._boundHandler);
   }
 
   attached() {
-    const axis = this.axis.toUpperCase() === 'X' ? 'X' : 'Y';
-    if (this.currentSide === 'back') {
-        this.$.front.transform = `rotate${axis}(180deg)`;
-        this.$.back.transform = `rotate${axis}(360deg)`;
-        this._lastActiveSide = 'back';
+    const axis = this._axis.toUpperCase() === 'X' ? 'X' : 'Y';
+    const front = this.shadowRoot.getElementById('front');
+    const back = this.shadowRoot.getElementById('back');
+    if (this._currentSide === 'back') {
+      front.transform = `rotate${axis}(180deg)`;
+      back.transform = `rotate${axis}(360deg)`;
+      this._currentSide = 'back';
     } else {
-        this.$.front.transform = `rotate${axis}(0deg)`;
-        this.$.back.transform = `rotate${axis}(180deg)`;
-        this._lastActiveSide = 'front';
+      front = `rotate${axis}(0deg)`;
+      back = `rotate${axis}(180deg)`;
+      this._currentSide = 'front';
     }
   }
 
   _processLightChildren() {
-    this.$.front.style.height = 'auto';
-    this.$.back.style.height = 'auto';
-    const frontHeight = this.$.front.offsetHeight;
-    const backHeight = this.$.back.offsetHeight;
+    const front = this.shadowRoot.getElementById('front');
+    const back = this.shadowRoot.getElementById('back');
+
+    front.style.height = 'auto';
+    back.style.height = 'auto';
+    const frontHeight = front.offsetHeight;
+    const backHeight = back.offsetHeight;
     const newHeight = Math.max(frontHeight, backHeight);
     this.style.height = `${newHeight + 70}px`;
-    this.$.front.style.height = `${newHeight}px`;
-    this.$.back.style.height = `${newHeight}px`;
-  }
-
-  _axisChanged(newValue) {
-    this._axis = newValue.toUpperCase() === 'X' ? 'X' : 'Y';
+    front.style.height = `${newHeight}px`;
+    back.style.height = `${newHeight}px`;
   }
 
   flip() {
-    this.currentSide = (this.currentSide === 'back') ? 'front' : 'back';
+    this.currentSide = (this._currentSide === 'back') ? 'front' : 'back';
   }
 
-  _currentSideChanged(to, from) {
-    // First time running, from is always blank.
-    if (from == '' || from === undefined) {
+  get axis() {
+    return this.__axis;
+  }
+  set axis(newValue) {
+    if (!newValue) {
+      this._axis = 'Y';
+      this.setAttribute('axis', 'Y');
       return;
     }
+
+    const uc = newValue.toUpperCase();
+    if (['X','Y'].includes(uc)) {
+      this._axis = uc;
+    }
+    this.setAttribute('axis', this._axis);
+  }
+
+  get duration() {
+    return this._duration;
+  }
+  set duration(newValue) {
+    const duration = parseInt(newValue) || 0;
+    this._duration = duration;
+    this.setAttribute('duration', duration);
+  }
+
+  get currentSide() {
+    return this._currentSide;
+  }
+  set currentSide(newValue) {
+    if (!newValue) {
+      this._currentSide = 'front';
+      this.setAttribute('current-side', 'front');
+      return;
+    }
+
+    const to = newValue.toLowerCase();
+
     // Are we changing to something sane
     // Is the new side not the one which is currently active
-    if (to === this._lastActiveSide || (to !== 'front' && to !== 'back')) {
-      return;
-    }
+    if (to !== this._currentSide && ['front','back'].includes(to)) {
+      const front = this.shadowRoot.getElementById('front');
+      const back = this.shadowRoot.getElementById('back');
 
-    if (to === 'front') {
-      this._animate(this.$.back, this.$.front)
-    } else {
-      this._animate(this.$.front, this.$.back)
-    }
+      if (to === 'front') {
+        this._animate(back, front)
+      } else {
+        this._animate(front, back)
+      }
 
-    this._lastActiveSide = to;
+      this._currentSide = to;
+    }
+    this.setAttribute('current-side', this._currentSide);
   }
 
   _animate(frontmost, rearmost) {
-    const axis = this.axis.toUpperCase() === 'X' ? 'X' : 'Y';
+    const axis = this._axis;
     const scale = (500 + 200) / 500;
 
-    const sideOne = [
+    const sideOneAnim = [
       {transform: `translateZ(-200px) rotate${axis}(0deg) scale(${scale})`},
       {transform: `translateZ(-100px) rotate${axis}(0deg) scale(${scale})`, offset: 0.15},
       {transform: `translateZ(-100px) rotate${axis}(180deg) scale(${scale})`, offset: 0.65},
       {transform: `translateZ(-200px) rotate${axis}(180deg) scale(${scale})`}
     ];
 
-    const sideTwo = [
+    const sideTwoAnim = [
       {transform: `translateZ(-200px) rotate${axis}(180deg) scale(${scale})`},
       {transform: `translateZ(-100px) rotate${axis}(180deg) scale(${scale})`, offset: 0.15},
       {transform: `translateZ(-100px) rotate${axis}(360deg) scale(${scale})`, offset: 0.65},
       {transform: `translateZ(-200px) rotate${axis}(360deg) scale(${scale})`}
     ];
 
-    const umbra = [
+    const umbraAnim = [
       {opacity: 0.3, transform: `translateY(2px) rotate${axis}(0deg)`},
       {opacity: 0.0, transform: `translateY(62px) rotate${axis}(0deg)`, offset: 0.15},
       {opacity: 0.0, transform: `translateY(62px) rotate${axis}(180deg)`, offset: 0.65},
       {opacity: 0.3, transform: `translateY(2px) rotate${axis}(180deg)`}
     ];
 
-    const penumbra = [
+    const penumbraAnim = [
       {opacity: 0.0, transform: `translateY(2px) rotate${axis}(0deg)`},
       {opacity: 0.5, transform: `translateY(62px) rotate${axis}(0deg)`, offset: 0.15},
       {opacity: 0.5, transform: `translateY(62px) rotate${axis}(180deg)`, offset: 0.65},
@@ -231,20 +302,23 @@ class FlippyCard extends PolymerElement {
     ];
 
     const timing = {
-      duration: this.duration,
+      duration: this._duration,
       iterations: 1,
       easing: 'ease-in-out',
       fill: 'forwards'
     };
 
-    frontmost.animate(sideOne, timing);
-    rearmost.animate(sideTwo, timing);
-    this.$.umbra.animate(umbra, timing);
-    this.$.penumbra.animate(penumbra, timing);
+    const umbraEl = this.shadowRoot.getElementById('umbra');
+    const penumbraEl = this.shadowRoot.getElementById('penumbra');
+
+    frontmost.animate(sideOneAnim, timing);
+    rearmost.animate(sideTwoAnim, timing);
+    umbraEl.animate(umbraAnim, timing);
+    penumbraEl.animate(penumbraAnim, timing);
 
     frontmost.inert = true;
     rearmost.inert = false;
   }
 }
 
-window.customElements.define(FlippyCard.is, FlippyCard);
+window.customElements.define('flippy-card', FlippyCard);
