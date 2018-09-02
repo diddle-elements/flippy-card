@@ -6,32 +6,47 @@
 
     <title>flip-card demo</title>
 
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script type="module">
+      import '@webcomponents/webcomponentsjs/webcomponents-loader.js';
+      import '@polymer/iron-demo-helpers/demo-pages-shared-styles.js';
+      import '@polymer/iron-demo-helpers/demo-snippet.js';
+      import '../flippy-card.js';
+    </script>
 
-    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../flippy-card.html">
-
-    <custom-style>
-      <style is="custom-style" include="demo-pages-shared-styles">
-      </style>
-    </custom-style>
+    <!-- FIXME(polymer-modulizer):
+        These imperative modules that innerHTML your HTML are
+        a hacky way to be sure that any mixins in included style
+        modules are ready before any elements that reference them are
+        instantiated, otherwise the CSS @apply mixin polyfill won't be
+        able to expand the underlying CSS custom properties.
+        See: https://github.com/Polymer/polymer-modulizer/issues/154
+        -->
   </head>
   <body>
-    <div class="vertical-section-container centered">
+    <script type="module">
+const $_documentContainer = document.createElement('template');
+
+$_documentContainer.innerHTML = `<div class="vertical-section-container centered">
       <h3>Basic flip-card demo</h3>
-      <demo-snippet>
-        <template>
-          <flippy-card current-side='front'>
-            <div slot="front">
-              This is the Front
-            </div>
-            <div slot="back">
-              This is the Back<br/>MoreContent<br/>Expando Divboxus!
-            </div>
-          </flippy-card>
-        </template>
-      </demo-snippet>
-    </div>
+
+        <demo-snippet>
+          <template>
+            <flippy-card id="flipme" current-side="front">
+              <div slot="front">
+                This is the Front
+                <br />
+              </div>
+              <div slot="back">
+                This is the Back<br>MoreContent<br>Expando Divboxus!
+              </div>
+            </flippy-card>
+            <button onclick="javascript:document.getElementById('flipme').flip();">Flip it!</button>
+          </template>
+        </demo-snippet>
+    </div>`;
+
+document.body.appendChild($_documentContainer.content);
+
+</script>
   </body>
 </html>
