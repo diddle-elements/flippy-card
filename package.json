@@ -2,7 +2,7 @@
   "description": "A Flippable &#34;card&#34; based on Paul Lewis&#39; experiment",
   "name": "@diddledan/flippy-card",
   "repository": "https://github.com/diddledan/flippy-card",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "license": "MIT",
   "resolutions": {
     "inherits": "2.0.3",
@@ -12,10 +12,10 @@
   },
   "main": "flippy-card.js",
   "dependencies": {
-    "@polymer/lit-element": "^0.5.2"
+    "@polymer/lit-element": "^0.6.5"
   },
   "devDependencies": {
-    "@polymer/iron-demo-helpers": "^3.0.0-pre.18",
-    "@webcomponents/webcomponentsjs": "^2.0.0"
+    "@polymer/iron-demo-helpers": "^3.0.2",
+    "@webcomponents/webcomponentsjs": "^2.2.1"
   }
 }
