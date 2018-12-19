@@ -1,4 +1,4 @@
-import { LitElement, html, property } from '@polymer/lit-element';
+import { LitElement, html } from '@polymer/lit-element';
 import './scripts/inert.js';
 
 /**

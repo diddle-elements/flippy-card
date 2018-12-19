@@ -7,7 +7,7 @@ A Flippable &#34;card&#34; based on Paul Lewis&#39; [UI Experiment](https://gith
 ## Installation
 
 1. Using npm install the package to your project
-    ```
+    ```bash
     cd $YOUR_PROJECT_DIR
     npm install --save @diddledan/flippy-card
     ```
@@ -27,6 +27,7 @@ You will now find a folder called node_modules in your project root which contai
 </custom-element-demo>
 ```
 -->
+
 ```html
 <flippy-card id="thecard" axis="Y" current-side='front'>
     <div slot="front">
@@ -46,6 +47,7 @@ function flipit() {
 ```
 
 ## Contributing
+
 1. Fork it!
 1. Create your feature branch: `git checkout -b my-new-feature`
 1. Commit your changes: `git commit -am 'Add some feature'`
@@ -53,10 +55,12 @@ function flipit() {
 1. Submit a pull request :D
 
 ## Credits
+
 * [Paul Lewis (aerotwist)](https://github.com/paullewis/) ([Paul's Homepage](https://aerotwist.com/))
 * [Daniel Llewellyn (diddledan)](https://github.com/diddledan/)
 
 ## License
+
 MIT License
 
 See the `LICENSE` file in the root folder of this package.
