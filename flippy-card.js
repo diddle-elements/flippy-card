@@ -45,7 +45,7 @@ class FlippyCard extends LitElement {
     ];
   }
   
-  _render() {
+  render() {
     const path = import.meta.url.replace(/flippy-card.js$/, '');
     const umbra = `${path}images/umbra.svg`;
     const penumbra = `${path}/images/penumbra.svg`;
