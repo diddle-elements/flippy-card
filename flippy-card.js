@@ -58,6 +58,8 @@ class FlippyCard extends LitElement {
         justify-content: center;
 
         --default-card-background: #fff;
+        --umbra: url(${umbra});
+        --penumbra: url(${penumbra});
       }
 
       * {
@@ -115,10 +117,10 @@ class FlippyCard extends LitElement {
         left: 30px;
         border-style: solid;
         border-width: 10px;
-        -moz-border-image: url("${umbra}") 10 round;
-        -webkit-border-image: url("${umbra}") 10 round;
-        -o-border-image: url("${umbra}") 10 round;
-        border-image: url("${umbra}") 10 fill round;
+        -moz-border-image: var(--umbra) 10 round;
+        -webkit-border-image: var(--umbra) 10 round;
+        -o-border-image: var(--umbra) 10 round;
+        border-image: var(--umbra) 10 fill round;
         transform: translateY(2px);
         opacity: 0.3;
       }
@@ -130,10 +132,10 @@ class FlippyCard extends LitElement {
         left: 0px;
         border-style: solid;
         border-width: 80px;
-        -moz-border-image: url("${penumbra}") 80 round;
-        -webkit-border-image: url("${penumbra}") 80 round;
-        -o-border-image: url("${penumbra}") 80 round;
-        border-image: url("${penumbra}") 80 fill round;
+        -moz-border-image: var(--penumbra) 80 round;
+        -webkit-border-image: var(--penumbra) 80 round;
+        -o-border-image: var(--penumbra) 80 round;
+        border-image: var(--penumbra) 80 fill round;
         transform: translateY(2px);
         opacity: 0;
       }
@@ -190,8 +192,8 @@ class FlippyCard extends LitElement {
       back.transform = `rotate${axis}(360deg)`;
       this._currentSide = 'back';
     } else {
-      front = `rotate${axis}(0deg)`;
-      back = `rotate${axis}(180deg)`;
+      front.transform = `rotate${axis}(0deg)`;
+      back.transform = `rotate${axis}(180deg)`;
       this._currentSide = 'front';
     }
   }
@@ -259,9 +261,9 @@ class FlippyCard extends LitElement {
       const back = this.shadowRoot.getElementById('back');
 
       if (to === 'front') {
-        this._animate(back, front)
+        this._animate(back, front);
       } else {
-        this._animate(front, back)
+        this._animate(front, back);
       }
 
       this._currentSide = to;
