@@ -12,7 +12,7 @@
   },
   "main": "flippy-card.js",
   "dependencies": {
-    "@polymer/lit-element": "^0.6.5"
+    "@polymer/lit-element": "^0.7.1"
   },
   "devDependencies": {
     "@polymer/iron-demo-helpers": "^3.0.2",
